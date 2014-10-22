@@ -1,0 +1,41 @@
+<p><meta http-equiv="content-type" content="text/html; charset=UTF-8"></p>
+
+<h1>Boot a PC</h1>
+
+<p>本文采用2007年的<a href="http://pdos.csail.mit.edu/6.828/2007/">版本</a>。
+原文链接(http://pdos.csail.mit.edu/6.828/2007/labs/lab1/lab1.html)</p>
+
+<h1>介绍</h1>
+
+<p>本节的实验被分为三部分。</p>
+
+<ul>
+<li><p>第一部分：</p>
+
+<blockquote><ol>
+<li>熟悉x86汇编语言</li>
+<li>使用Bochs x86仿真器。</li>
+<li>PC上电开机启动过程。</li>
+</ol>
+</blockquote></li>
+<li><p>第二部分</p>
+
+<blockquote><p>讲解了6.828内核使用的boot loader，这部分的代码位于lab1代码树的boot文件夹下。</p></blockquote></li>
+<li><p>第三部分</p>
+
+<blockquote><p>探讨了6.828内核的初始化部分，这个内核也称之为JOS，这部分代码位于kernel目录下。</p></blockquote></li>
+</ul>
+
+
+<h1>环境搭建</h1>
+
+<p>首先你需要下载本次实验的<a href="http://pdos.lcs.mit.edu/6.828/2007/labs/lab1/lab1.tar.gz">代码</a>。可以使用如下命令：</p>
+
+<pre><code>    linux% cd ~/6.828
+    linux% wget http://pdos.lcs.mit.edu/6.828/2007/labs/lab1/lab1.tar.gz
+    linux% gtar xzvf lab1.tar.gz
+    linux% cd lab1
+    linux%
+</code></pre>
+
+<p><strong>注意</strong>原MIT课程使用了Athena系统来提供学生的上机服务。此处用用自己的实验过程来进行补充。</p>
