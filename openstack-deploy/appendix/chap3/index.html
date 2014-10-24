@@ -51,7 +51,7 @@
 <p>在实际应用中，经常会使用rpm包安装系统。由于网络的原因，经常会导致下载时间特别长。因此，制作离线源变得非常迫切。在本文中，将会介绍如何制作用于CentOS 6.5的离线源。</p>
 <p>此处制作的离线源主要用于安装OpenStack Icehouse版本使用，其他版本仅供参考。</p>
 <h1>重要提示</h1>
-<p>如果是复制本页代码，会在每行代码的前面形成多余的空格。去除方法如下：</p>
+<p>如果是复制本页代码，有的浏览器由于对CSS支持不同，会在每行代码的前面形成多余的空格。去除方法如下：</p>
 <pre><code>sed -i &quot;s,^    ,,g&quot; file_path
 </code></pre>
 
@@ -137,7 +137,7 @@ proxy=_none_
 
 <p><strong>注意</strong>openstack-repo.repo文件开始并没有空格或者Tab。</p>
 <p>接下来，就可以使用做好的离线源了。</p>
-<pre><code>sed -i 's,^    ,,g' /etc/yum.repos.d/openstack-repo.repo
+<pre><code>
 yum makecache
 yum install openstack-nova-compute
 </code></pre>
@@ -277,9 +277,7 @@ yum makecache
 </code></pre>
 
 <p><strong>注意</strong></p>
-<pre><code>sed -i 's,^    ,,g' /etc/yum.repos.d/icehouse.repo
-用于去掉行首的空格，如果不去掉，yum不能识别repo文件。
-</code></pre>
+<pre></pre>
 
 <h1>方案2</h1>
 <h2>思路</h2>
@@ -368,10 +366,6 @@ done
 </code></pre>
 
 <p>复制此脚本，写入download文件，执行如下命令：</p>
-<pre><code>[[ `cat download | head -1 | grep &quot;^#&quot; | wc -l` -eq 0 ]] &amp;&amp; sed -i &quot;s,^    ,,g&quot; download
-</code></pre>
-
-<p>成功去掉行首多余的空格之后，运行脚本：</p>
 <pre><code>./download
 </code></pre>
 
@@ -406,10 +400,6 @@ done
 echo &quot;build success&quot;
 </code></pre>
 
-<p>如果是复制此内容，请运行如下命令，去掉开头多余的空格：</p>
-<pre><code>[[ `cat build | head -1 | grep &quot;^#&quot; | wc -l` -eq 0 ]] &amp;&amp; sed -i &quot;s,^    ,,g&quot; build
-</code></pre>
-
 <p>然后，执行build命令：</p>
 <pre><code>./build &gt;build-log 2&gt;&amp;1 &amp;
 </code></pre>
@@ -437,10 +427,6 @@ done
 echo &quot;download over&quot;
 </code></pre>
 
-<p>如果是复制本脚本，请务必运行如下命令去掉行首多余的空格：</p>
-<pre><code>    [[ `cat re-download | head -1 | grep &quot;^#&quot; | wc -l` -eq 0 ]] &amp;&amp; sed -i &quot;s,^    ,,g&quot; re-download
-</code></pre>
-
 <p>下载成功之后，请运行re-build脚本：</p>
 <pre><code>#!/bin/bash
 
@@ -466,9 +452,6 @@ done
 echo &quot;re-build success&quot;
 </code></pre>
 
-<p>如果是复制本脚本，请运行如下命令去掉行首多余的空格：</p>
-<pre><code>    [[ `cat re-build | head -1 | grep &quot;^#&quot; | wc -l` -eq 0 ]] &amp;&amp; sed -i &quot;s,^    ,,g&quot; re-build
-</code></pre>
 
 <h2>Step 3 存放至http服务器</h2>
 <p>将些离线源做好之后，存放至http服务。Ubuntu可以直接存放于/var/www/目录下，而CentOS需要存放于/var/www/html/目录下，并且CentOS需要开启如下规则：</p>
