@@ -101,7 +101,7 @@
 <p><img src='./stack.png'/></p>
 
 
-<h1>Ceph存储集女禾口</h1>
+<h1>Ceph存储集群</h1>
 <p>
 基于RADOS（全称为可靠全自动分布式对象存储系统），Ceph提供了无限的存储扩张能力。可以读论文
 <a href="http://ceph.com/papers/weil-rados-pdsw07.pdf">《RADOS - A Scalable, Reliable Storage Service for Petabyte-scale Storage Clusters》</a>
@@ -122,8 +122,16 @@
 </p>
 
 
-
-
+<h1>存储数据</h1>
+<p>Ceph存储系统，可能从以下四种客户端接收到以数据：</p>
+<ul>
+  <li>Ceph Block Device</li>
+  <li>Ceph Object Device</li>
+  <li>Ceph Filesystem</li>
+  <li>librados接口</li>
+</ul>
+<p>不管是哪种方式发送过来的数据，Ceph都是当做对象存储起来。每个存储对象都是做为一个文件存放到文件系统中（Ceph底层可能用各种各样的文件系统，比如xfs，ext4）。这些相应的文件系统是建立在对象存储设备上。Ceph OSD Daemons则会负责将每个对象文件写到磁盘设备上，或者是从磁盘设备中读出来。</p>
+<img src='./object-osd-device.png'/>
 
 <p>首先你需要下载本次实验的<a href="http://pdos.lcs.mit.edu/6.828/2007/labs/lab1/lab1.tar.gz">代码</a>。在开始实验之前。还需要一系列的准备工作，步骤如下。</p>
 <h2>第一步 下载资源</h2>
