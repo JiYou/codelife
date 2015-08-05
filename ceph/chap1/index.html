@@ -22,16 +22,14 @@
 
   <div class="wrapper">
     <header>
-      <h1 class="title">MIT-6.828内核</h1>
+      <h1 class="title">Ceph深入剖析</h1>
     </header>
     <div id="container">
       <p class="tagline">
-	  
 		<!-- TAG 1 -->
 		<a href="http://jiyou.github.io/codelife/ceph/"> 回目录 </a>
 		<a href="http://jiyou.github.io/codelife/ceph/chap2"> 下一章 </a>
 		<!-- TAG 1 -->
-		
 	  </p>
       <div id="main" role="main">
         <div class="download-bar">
@@ -49,32 +47,50 @@
 <!-- 正文 ------------------------>
 
 <h1>Ceph的框架</h1>
-<p>本文采用2007年的<a href="http://pdos.csail.mit.edu/6.828/2007/">版本</a>。
-原文链接(http://pdos.csail.mit.edu/6.828/2007/labs/lab1/lab1.html)</p>
+<p>本文翻译自<a href="http://ceph.com/docs/master/architecture/">版本</a>。</p>
+
 <h1>介绍</h1>
-<p>本节的实验被分为三部分。</p>
+
+<p>分为三部分。</p>
 <ul>
-<li>第一部分：</li>
+    <li>Ceph存储集群</li>
 </ul>
 <blockquote>
-<ol>
-<li>熟悉x86汇编语言</li>
-<li>使用Bochs x86仿真器。</li>
-<li>PC上电开机启动过程。</li>
-</ol>
+    <ol>
+        <li>存储数据</li>
+        <li>扩展性与高可用</li>
+        <li>动态的集群管理</li>
+        <li>纠删码</li>
+        <li>缓存分层</li>
+        <li>扩展Ceph</li>
+        <li>总结</li>
+    </ol>
 </blockquote>
+
 <ul>
-<li>第二部分</li>
+    <li>Ceph协议</li>
+</ul>
+
+<blockquote>
+    <ol>
+        <li>本地协议与librados</li>
+        <li>Object观测与通知</li>
+        <li>数据分块</li>
+    </ol>
+</blockquote>
+
+<ul>
+    <li>Ceph客户端</li>
 </ul>
 <blockquote>
-<p>讲解了6.828内核使用的boot loader，这部分的代码位于lab1代码树的boot文件夹下。</p>
+    <ol>
+        <li>对象存储</li>
+        <li>块存储</li>
+        <li>文件系统</li>
+    </ol>
 </blockquote>
-<ul>
-<li>第三部分</li>
-</ul>
-<blockquote>
-<p>探讨了6.828内核的初始化部分，这个内核也称之为JOS，这部分代码位于kernel目录下。</p>
-</blockquote>
+
+
 <h1>环境搭建</h1>
 <p>首先你需要下载本次实验的<a href="http://pdos.lcs.mit.edu/6.828/2007/labs/lab1/lab1.tar.gz">代码</a>。在开始实验之前。还需要一系列的准备工作，步骤如下。</p>
 <h2>第一步 下载资源</h2>
