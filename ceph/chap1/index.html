@@ -1,0 +1,226 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="../../stylesheets/stylesheet.css" media="screen">
+  <link rel="stylesheet" href="../../stylesheets/pygment_trac.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../../javascripts/script.js"></script>
+
+  <title>Codelife</title>
+  <meta name="description" content="技术人生">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">MIT-6.828内核</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">
+	  
+		<!-- TAG 1 -->
+		<a href="http://jiyou.github.io/codelife/mit-6.828/"> 回目录 </a>
+		<a href="http://jiyou.github.io/codelife/mit-6.828/chap2"> 下一章 </a>
+		<!-- TAG 1 -->
+		
+	  </p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        	<span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+		<p>作者: Ji You Email: jumail@qq.com</p>
+			<h1>
+
+				<a name="codelife" class="anchor" href="#codelife">
+				<span class="octicon octicon-link"></span></a>
+			</h1>
+
+
+<!-- 正文 ------------------------>
+
+<h1>Boot a PC</h1>
+<p>本文采用2007年的<a href="http://pdos.csail.mit.edu/6.828/2007/">版本</a>。
+原文链接(http://pdos.csail.mit.edu/6.828/2007/labs/lab1/lab1.html)</p>
+<h1>介绍</h1>
+<p>本节的实验被分为三部分。</p>
+<ul>
+<li>第一部分：</li>
+</ul>
+<blockquote>
+<ol>
+<li>熟悉x86汇编语言</li>
+<li>使用Bochs x86仿真器。</li>
+<li>PC上电开机启动过程。</li>
+</ol>
+</blockquote>
+<ul>
+<li>第二部分</li>
+</ul>
+<blockquote>
+<p>讲解了6.828内核使用的boot loader，这部分的代码位于lab1代码树的boot文件夹下。</p>
+</blockquote>
+<ul>
+<li>第三部分</li>
+</ul>
+<blockquote>
+<p>探讨了6.828内核的初始化部分，这个内核也称之为JOS，这部分代码位于kernel目录下。</p>
+</blockquote>
+<h1>环境搭建</h1>
+<p>首先你需要下载本次实验的<a href="http://pdos.lcs.mit.edu/6.828/2007/labs/lab1/lab1.tar.gz">代码</a>。在开始实验之前。还需要一系列的准备工作，步骤如下。</p>
+<h2>第一步 下载资源</h2>
+<p>找一台Linux机器，推荐CentOS 5.6版本。安装好git与c,c++之后。执行命令如下：</p>
+<pre><code>cd /opt/
+git clone https://github.com/JiYou/mit-6.828-docs.git
+cd mit-6.828-docs
+git checkout master
+</code></pre>
+
+<p><strong>注意</strong> 寻找到CentOS 5.6的DVD光盘，在安装操作系统时，请选择Development Libraries和Development Tools。请务必使用CentOS 5.6版本，更新的发行版由于编译器更新，编译时，容易出现各种未知错误。安装时，务必将桌面系统也安装上。</p>
+<h2>第二步 安装Bochs</h2>
+<p>安装Bochs顺序如下：</p>
+<pre><code>cd mit-6.828-docs # 此处为前面下载资源目录。
+mkdir -p ~/mit-6.828
+cp -rf Course1/bochs-2.2.6.tar.gz ~/mit-6.828/
+cd ~/mit-6.828/
+./configure --prefix=/usr \
+        --enable-cdrom \
+        --enable-disasm \
+        --enable-smp \
+        --enable-debugger \
+        --enable-new-pit \
+        --enable-all-optimizations \
+        --enable-4meg-pages \
+        --enable-global-pages \
+        --enable-pae \
+        --disable-reset-on-triple-fault \
+        --with-all-libs \
+        --with-x \
+        --with-x11 \
+        --with-nogui
+</code></pre>
+
+<p>如果看到如下输出，则说明configure成功：</p>
+<pre><code>config.status: creating build/linux/bochs-dlx
+config.status: creating bxversion.h
+config.status: creating build/macosx/Info.plist
+config.status: creating build/win32/nsis/Makefile
+config.status: creating build/win32/nsis/bochs.nsi
+config.status: creating host/linux/pcidev/Makefile
+config.status: creating config.h
+config.status: creating ltdlconf.h
+</code></pre>
+
+<p>紧接着开始编译且安装源码包：</p>
+<pre><code>make
+make install
+</code></pre>
+
+<p>各参数解释如下:</p>
+<ul>
+<li>--enable-cdrom: 支持CDROM</li>
+<li>--enable-disasm: 使得Bochs可以反汇编机器指令，disasm是disassemble的缩写。</li>
+<li>--enable-smp: 支持SMP配置。</li>
+<li>--enable-debugger: 使得用户可以使用bochs自带的调试器进行调试。</li>
+<li>--enable-new-pit: 使用新的更加完善的pit模块。</li>
+<li>--enable-all-optimizations： 打开所有的速度优化选项。</li>
+<li>--enable-4meg-pages: 支持4M页面扩展。</li>
+<li>--enable-global-pages: 支持全局页面特性。避免经常使用的页面从TLB中移出。</li>
+<li>--enable-pae: 支持特理地址扩展。</li>
+<li>--disable-reset-on-triple-fault: 关闭三次错误之后自动重启。</li>
+<li>--with-all-libs: 使用所有的库。</li>
+<li>--with-x: 使用Xwindows.</li>
+<li>--with-x11: 使用x11桌面系统。</li>
+<li>--with-nogui: 不使用幼稚的GUI。</li>
+</ul>
+<p><strong>注意</strong></p>
+<ul>
+<li>此处必须使用bochs-2.2.6.tar.gz，最好不要使用其他版本bochs。否则容易出现未知问题。</li>
+<li>C/C++是必须的在configure之前安装好的。</li>
+<li>原MIT课程使用了Athena系统来提供学生的上机服务。此处用用自己的Linux实验过程来进行补充。所以看英文原版的就不用去想Athena是什么系统了。</li>
+<li>使用越新的系统，由于gcc/g++版本越高，在编译旧版本的bochs时，容易遇到编译器的问题。因此，推荐使用<strong>CentOS-5.6</strong>系统。</li>
+</ul>
+<h2>第三步 启动Lab1</h2>
+<p>安装好Bochs之后，便可以开始Lab1实验了。编译步骤如下：</p>
+<pre><code>cd ~/mit-6.828
+cp -rf /opt/mit-6.828-docs/Course1/lab1.tar.gz ./
+tar zxf lab1.tar.gz
+cd lab1
+make
+</code></pre>
+
+<p>接下来需要在GUI环境中，打开命令行:</p>
+<pre><code>cd ~/mit-6.828/lab1
+bochs
+</code></pre>
+
+<p>得到如下输出：</p>
+<pre><code>You can also start bochs with the -q option to skip these menus.
+
+    1. Restore factory default configuration
+    2. Read options from...
+    3. Edit options
+    4. Save options to...
+    5. Begin simulation
+    6. Quit now
+
+Please choose one: [5]
+输入5 
+</code></pre>
+
+<p>选择选项5，开始仿真。出现如下界面：</p>
+<p><img src="./first-run.png" />
+图1.1 运行bochs</p>
+<p>此时bochs并没有任何输出。需要选中终端，终端中有如下内容：</p>
+<pre><code>Next at t=0
+(0) [0xfffffff0] f000:fff0 (unk. ctxt): ljmp f000:e05b ; ea5be000f0
+&lt;bochs:1&gt;
+</code></pre>
+
+<p>输入c，表示继续执行，得到如下界面：</p>
+<p><img src="./press-c.png" />
+图1.2 内核初始运行画面。</p>
+<p>如果能得到类似输出，表明Lab1执行成功。</p>
+<h1>Part 1： 启动PC</h1>
+<p>第一个练习的目的在于让你熟悉x86汇编语言以及PC的开机启动过程，此外，也需要让你熟悉Bochs debugger。在本节实验中，你不需要写任何代码，但是你需要理解下面的知识，以确保能够正确地回答练习中的问题。</p>
+<h2>开始学习x86汇编</h2>
+<p>如果你并不熟悉汇编语言，那么，你需要尽快熟悉这门语言以应对这门课程。<a href="http://pdos.csail.mit.edu/6.828/2007/readings/pcasm-book.pdf">The PC Assembly Language Book</a>是一本非常好的入门书籍。幸运之处在于，本书中能够找到大部分新旧材料。</p>
+<p><strong>注意</strong>
+本书唯的缺陷之处在于使用的是NASM汇编语言，但是在6.828课程中，使用的却是GNU assembler。NASM使用的是Intel语法，而GNU assembler使用的却是AT&amp;T语法。单从语法上而言，这两者写出来的代码差异很大，但是，这两者之间的转换却是非常简单，可以参考<a href="http://www.delorie.com/djgpp/doc/brennan/brennan_att_inline_djgpp.html">Brennan's Guide to Inline Assembly</a>.</p>
+<p>这里提到的两本资料在https://github.com/JiYou/mit-6.828-docs/tree/master/Course1都可以找到。下载相应的资料即可。</p>
+<p>&lt;Read to 1.3.5 page 23&gt;</p>
+
+<!-- 正文 -------------------------------->
+
+
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/JiYou" class="avatar"><img src="https://avatars0.githubusercontent.com/u/448253?v=2&amp;s=60" width="48" height="48"></a> <a href="https://github.com/JiYou">JiYou</a> maintains <a href="https://github.com/JiYou/codelife">Codelife</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="http://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/JiYou/codelife/tarball/master" class="tar">tar</a><a href="https://github.com/JiYou/codelife/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+</body>
+</html>
