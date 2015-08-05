@@ -97,7 +97,32 @@
   <li>Ceph Storage Cluster: 由一系列Ceph Node构成，在这个集群，Ceph Node之间会动态地相互备份和分发。</li>
 </ul>
 
+<p>整个Ceph的结构图如下图所示。</p>
 <p><img src='./stack.png'/></p>
+
+
+<h1>Ceph存储集女禾口</h1>
+<p>
+基于RADOS（全称为可靠全自动分布式对象存储系统），Ceph提供了无限的存储扩张能力。可以读论文
+<a href="http://ceph.com/papers/weil-rados-pdsw07.pdf">《RADOS - A Scalable, Reliable Storage Service for Petabyte-scale Storage Clusters》</a>
+</p>
+
+<p>一个Ceph存储系统由两部分守护进程构成:</p>
+<ul>
+  <li>Ceph OSD Daemon: 每个OSD Daemon都会检查OSD自己的状态，也会检查其他的OSD状态，并且会把这些状态汇报给Ceph Monitors。</li>
+  <li>Ceph Monitor: 每个Ceph Monitor都保存了整个Ceph Cluster的Cluster map的备份。对于整个Ceph集群而言，则会有多个Ceph Monitor，这些Ceph Monitor之间保证了高可用，以免当单个Ceph Monitor失败而导致整个Ceph不可用。而存储集群的客户端只需要从一个Active的Ceph Monitor取一份Cluster Map就可以与整个Ceph存储系统交流了。
+  </li>
+</ul>
+
+<p>两者结构如下图所示:</p>
+<img src='./monitor-osd.png'/>
+
+<p>一般的存储系统采用查表的方式来确定数据的存放位置，但是Ceph并不采用这种方式。Ceph存储集群的客户端，以及每个Ceph OSD Daemon利用CRUSH算法来有效地计算数据存放的位置。
+可以这么讲，Ceph更上层的特性比如对象存储，块存储，文件系统都是通过本地的librados接口来实现的。通过这个librados接口，还可以实现更多的上层服务接口。
+</p>
+
+
+
 
 
 <p>首先你需要下载本次实验的<a href="http://pdos.lcs.mit.edu/6.828/2007/labs/lab1/lab1.tar.gz">代码</a>。在开始实验之前。还需要一系列的准备工作，步骤如下。</p>
