@@ -150,6 +150,11 @@
 <h2>扩展性与高可用性</h2>
 <p>在传统的架构里面，客户端会与一个中心化的结构进行交流，比如gateway, broker, API, facade等等。对于一个复杂的系统而言，这就是一个单一的入口。这样做来带来的问题是会存在性能与扩展性的限制，更容易带来单点失效（比如，当中心结点挂掉之后，整个系统都对于客户端而方就变得不可用了。）</p>
 
+<p>Ceph取消了这种类似于网关的中心化结构，却采用一种client能够直接与Ceph OSD Daemon直接交流的方式来传数据。为了保证数据的安全性与高可用性，Ceph OSD Daemon会在其他OSD上创建相应的数据备份。对于Ceph Monitor而言，Ceph也使用了多个Monitors来保证高可用性。Ceph用了CRUSH来去中心化。</p>
+
+<h2>CRUSH简介</h2>
+Ceph Clients和Ceph OSD Daemons都用CRUSH算法来计算数据存放的真正位置，而不是像以前的存储系统一样采用查表的方式来确定存储位置。相对于以前的方案，CRUSH提供了更好的解决办法，特别是在存储系统规模扩大的时候，能够把负载均衡到各个Clients和OSD上。CRUSH用了智能的数据备份方案来保证系统的灵活性，这在较大的数据中心是必不可少的。接下来会简单地介绍CRUSH算法，对于更多的详细信息，可以参考论文<a href="http://ceph.com/papers/weil-crush-sc06.pdf">《CRUSH - Controlled, Scalable, Decentralized Placement of Replicated Data》</a>
+
 
 
 
