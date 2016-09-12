@@ -351,6 +351,7 @@ a {
   }
   #container .article .article-meta .article-date {
     font-size: 12px;
+    -webkit-border-radius: 0;
     border-radius: 0;
     color: #666;
     background: none;
@@ -426,8 +427,8 @@ a {
     opacity: 1;
   }
   #container .instagram .open-ins {
-    left: 2px;
-    top: -30px;
+    right: 2px;
+    top: -65px;
     color: #aaa;
   }
   #container .info-on-right {
@@ -490,6 +491,7 @@ a {
   text-align: center;
   display: block;
   border: 5px solid #fff;
+  -webkit-border-radius: 300px;
   border-radius: 300px;
   width: 128px;
   height: 128px;
@@ -507,6 +509,7 @@ a {
 #header .profilepic img {
   width: 20%;
   height: 20%;
+  -webkit-border-radius: 300px;
   border-radius: 300px;
   opacity: 0;
   -webkit-transition: all 0.2s ease-in;
@@ -533,7 +536,7 @@ a {
   cursor: pointer;
   text-transform: uppercase;
   float: none;
-  min-height: 150px;
+  height: 150px;
   margin-left: -12px;
   text-align: center;
   display: -webkit-box;
@@ -582,6 +585,7 @@ a {
   text-align: center;
 }
 #header .header-nav .social a {
+  -webkit-border-radius: 50%;
   border-radius: 50%;
   display: -moz-inline-stack;
   display: inline-block;
@@ -695,6 +699,7 @@ a {
 }
 #header .switch-part3 .switch-friends-link {
   margin-right: 9px;
+  -webkit-border-radius: 3px;
   border-radius: 3px;
   padding: 5px;
 }
@@ -996,6 +1001,7 @@ a {
   width: 6px;
   height: 6px;
   border: 1px solid #999;
+  -webkit-border-radius: 10px;
   border-radius: 10px;
   background: #aaa;
   display: inline-block;
@@ -1132,6 +1138,7 @@ a {
   line-height: 16px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
   border-radius: 2px;
   -webkit-transition: background 0.3s;
   -moz-transition: background 0.3s;
@@ -1165,6 +1172,7 @@ a {
 #article-nav .article-nav-link-wrap strong {
   background: #ddd;
   color: #fff;
+  -webkit-border-radius: 100%;
   border-radius: 100%;
   width: 15px;
   height: 15px;
@@ -1455,7 +1463,7 @@ a {
 }
 .article-entry pre,
 .article-entry .highlight {
-  background: #272822;
+  background: #4d4d4d;
   margin: 10px 0;
   padding: 10px 10px;
   overflow: auto;
@@ -1465,6 +1473,7 @@ a {
 .article-entry .highlight .gutter pre,
 .article-entry .gist .gist-file .gist-data .line-numbers {
   color: #666;
+  font-size: 0.85em;
 }
 .article-entry pre,
 .article-entry code {
@@ -1472,20 +1481,18 @@ a {
 }
 .article-entry code {
   background: #eee;
+  text-shadow: 0 1px #fff;
   padding: 0 0.3em;
   border: none;
 }
 .article-entry pre {
-  color: #fff;
+  color: #eef8fc;
 }
 .article-entry pre code {
   background: none;
   text-shadow: none;
   padding: 0;
-  color: #fff;
-}
-.article-entry .highlight {
-  border-radius: 4px;
+  color: #eef8fc;
 }
 .article-entry .highlight pre {
   border: none;
@@ -1502,7 +1509,7 @@ a {
 }
 .article-entry .highlight figcaption {
   font-size: 0.85em;
-  color: highlight-comment;
+  color: #a6e22e;
   line-height: 1em;
   margin-bottom: 1em;
 }
@@ -1525,8 +1532,8 @@ a {
   text-shadow: none;
 }
 .article-entry .highlight .line {
-  font-size: 15px;
-  height: 15px;
+  font-size: 14px;
+  height: 22.400000000000002px;
 }
 .article-entry .gist {
   margin: 0 -20px;
@@ -1560,7 +1567,7 @@ a {
 }
 .article-entry .gist .gist-file .gist-meta {
   background: #272822;
-  color: highlight-comment;
+  color: #a6e22e;
   font: 0.85em "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-shadow: 0 0;
   padding: 0;
@@ -1575,45 +1582,62 @@ a {
   text-decoration: underline;
 }
 pre .comment {
-  color: #75715e;
+  color: #ddd;
 }
-pre .keyword,
-pre .function .keyword,
-pre .class .params {
-  color: #66d9ef;
-}
-pre .tag,
-pre .doctype,
-pre .params,
-pre .function,
-pre .css .value {
-  color: #fff;
-}
-pre .css ~ * .tag,
-pre .title,
-pre .at_rule,
-pre .at_rule .keyword,
-pre .preprocessor,
-pre .preprocessor .keyword {
-  color: #f92672;
-}
-pre .attribute,
-pre .built_in,
-pre .class,
-pre .css ~ * .class,
-pre .function .title {
+pre .title {
   color: #a6e22e;
 }
-pre .value,
-pre .string {
+pre .variable,
+pre .attribute,
+pre .tag,
+pre .regexp,
+pre .ruby .constant,
+pre .xml .tag .title,
+pre .xml .pi,
+pre .xml .doctype,
+pre .html .doctype,
+pre .css .id,
+pre .css .class,
+pre .css .pseudo {
+  color: #f2777a;
+}
+pre .number,
+pre .preprocessor,
+pre .built_in,
+pre .literal,
+pre .params,
+pre .constant {
+  color: #66d9ef;
+}
+pre .class,
+pre .ruby .class .title,
+pre .css .rules .attribute {
   color: #e6db74;
 }
-pre .number {
-  color: #7163d7;
+pre .string,
+pre .value,
+pre .inheritance,
+pre .header,
+pre .ruby .symbol,
+pre .xml .cdata {
+  color: #e6db74;
 }
-pre .id,
-pre .css ~ * .id {
-  color: #fd971f;
+pre .css .hexcolor {
+  color: #6cc;
+}
+pre .function,
+pre .python .decorator,
+pre .python .title,
+pre .ruby .function .title,
+pre .ruby .title .keyword,
+pre .perl .sub,
+pre .javascript .title,
+pre .coffeescript .title {
+  color: #69c;
+}
+pre .keyword,
+pre .javascript .function {
+  color: #f92672;
 }
 #footer {
   font-size: 12px;
@@ -1658,6 +1682,7 @@ pre .css ~ * .id {
   background: #4d4d4d;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
   border-radius: 50%;
   display: inline-block;
   color: #fff;
@@ -1716,27 +1741,40 @@ pre .css ~ * .id {
   margin-left: 10px;
 }
 .instagram .album ul {
-  min-height: 149px;
   padding-top: 17px;
   border-bottom: 1px solid #ddd;
-  list-style: none;
+  clear: both;
+  width: 100%;
+  text-align: left;
 }
 .instagram .album li {
-  position: relative;
+  list-style: none;
   display: inline-block;
-  min-width: 157px;
-  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 5px;
+  margin-bottom: -10px;
+  height: 0;
+  width: 25%;
+  position: relative;
+  padding-bottom: 25%;
 }
 .instagram .album li:before {
   display: none;
 }
 .instagram .album div.img-box {
-  position: relative;
-  margin: 0 20px 10px;
+  position: absolute;
+  width: 90%;
+  height: 90%;
   -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
   -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
   -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
   box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
+}
+.instagram .album div.img-box img {
+  width: 100%;
+  height: 100%;
 }
 .instagram .album div.img-box .img-bg {
   position: absolute;
@@ -1765,22 +1803,21 @@ pre .css ~ * .id {
 .instagram .album div.img-box .img-bg:hover {
   opacity: 0;
 }
-.instagram .album div.img-box img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
 @media screen and (max-width: 600px) {
   .instagram .album ul {
     margin-left: 0;
-    padding: 0;
     text-align: center;
   }
   .instagram .album li {
-    max-width: 300px;
+    width: 100%;
+    position: relative;
+    padding-bottom: 100%;
+    text-align: center;
   }
   .instagram .album div.img-box {
     margin: 0;
+    width: 90%;
+    height: 90%;
   }
 }
 .switch-btn {
@@ -1810,6 +1847,7 @@ pre .css ~ * .id {
   color: #fff;
   width: 80px;
   text-align: center;
+  -webkit-border-radius: 3px;
   border-radius: 3px;
   opacity: 0.8;
   position: absolute;
@@ -1829,6 +1867,7 @@ pre .css ~ * .id {
   height: 32px;
   width: 32px;
   background: #cecece;
+  -webkit-border-radius: 100px;
   border-radius: 100px;
   position: relative;
   overflow: hidden;
@@ -1872,6 +1911,7 @@ pre .css ~ * .id {
   position: absolute;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
+  -webkit-border-radius: 60px;
   border-radius: 60px;
   left: 10px;
   top: 8px;
@@ -1886,6 +1926,7 @@ pre .css ~ * .id {
   left: 4px;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
+  -webkit-border-radius: 60px;
   border-radius: 60px;
 }
 .switch-btn .icon-ctn .ribbon {
@@ -1911,6 +1952,7 @@ pre .css ~ * .id {
   border-style: solid;
   border-width: 0px 3px 3px 3px;
   border-color: #333;
+  -webkit-border-radius: 0 0 50px 50px;
   border-radius: 0 0 50px 50px;
   position: absolute;
   top: 16px;
@@ -1934,6 +1976,7 @@ pre .css ~ * .id {
   border-style: solid;
   border-width: 3px 0 0 3px;
   border-color: #333;
+  -webkit-border-radius: 50px 0 0 0;
   border-radius: 50px 0 0 0;
   position: absolute;
   left: -3px;
@@ -1945,6 +1988,7 @@ pre .css ~ * .id {
   border-style: solid;
   border-width: 3px 3px 0 3px;
   border-color: #333;
+  -webkit-border-radius: 50px 50px 0 0;
   border-radius: 50px 50px 0 0;
   position: absolute;
   top: 8px;
@@ -1968,6 +2012,7 @@ pre .css ~ * .id {
   border-style: solid;
   border-width: 0 3px 3px 0;
   border-color: #333;
+  -webkit-border-radius: 0 0 50px 0;
   border-radius: 0 0 50px 0;
   position: absolute;
   left: 5px;
@@ -1977,6 +2022,7 @@ pre .css ~ * .id {
   width: 12px;
   height: 14px;
   background: #333;
+  -webkit-border-radius: 5px 5px 0 0;
   border-radius: 5px 5px 0 0;
   margin-left: 10px;
   margin-top: 2px;
@@ -2022,6 +2068,7 @@ pre .css ~ * .id {
   float: left;
   padding: 0 5px 0px 10px;
   position: relative;
+  -webkit-border-radius: 0 5px 5px 0;
   border-radius: 0 5px 5px 0;
   margin: 5px 9px 5px 8px;
   font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
@@ -2043,6 +2090,7 @@ pre .css ~ * .id {
   width: 4px;
   height: 4px;
   background-color: #fff;
+  -webkit-border-radius: 4px;
   border-radius: 4px;
   -webkit-box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.3);
   box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.3);
@@ -2159,10 +2207,12 @@ pre .css ~ * .id {
   display: block;
 }
 ::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 8px;
   border-radius: 8px;
   background-color: rgba(0,0,0,0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
+  -webkit-border-radius: 8px;
   border-radius: 8px;
   background-color: rgba(0,0,0,0.5);
 }
@@ -2230,6 +2280,7 @@ pre .css ~ * .id {
   width: 6px;
   height: 6px;
   border: 1px solid #999;
+  -webkit-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   background: #aaa;
